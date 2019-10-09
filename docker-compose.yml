@@ -1,0 +1,252 @@
+version: "2.1"
+services:
+  #nginx: 
+  #  image: nginx:latest
+  #  container_name: nginx
+  #  volumes:
+  #    - /opt/nginx/nginx.conf:/etc/nginx/nginx.conf
+  #    - /opt/nginx/logs/:/etc/nginx/
+  #    - /opt/nginx/cache/:/etc/nginx/cache
+  #  ports:
+  #    - 80:80
+  #    - 443:443
+  #  restart: on-failure
+
+  grafana:
+    container_name: grafana
+    image: grafana/grafana
+    user: "1000"
+    ports:
+      - 3000:3000
+    volumes:
+      - /opt/grafana:/etc/grafana:rw
+      - /opt/grafana:/var/lib/grafana:rw
+      - /etc/timezone:/etc/timezone:ro
+    restart: on-failure
+    depends_on:
+      influxdb:
+        condition: service_healthy
+
+  zwave2mqtt:
+    container_name: zwave2mqtt
+    image: robertslando/zwave2mqtt:latest
+    restart: always
+    tty: true
+    stop_signal: SIGINT
+    network_mode: "host"
+    devices:
+      - "/dev/ttyACM1:/dev/ttyACM1"
+    volumes:
+      - /opt/zwave2mqtt:/usr/src/app/store
+    depends_on:
+      mosquitto:
+        condition: service_started
+      
+
+  zigbee2mqtt:
+    container_name: zigbee2mqtt
+    image: koenkk/zigbee2mqtt
+    volumes:
+      - /opt/zigbee2mqtt:/app/data
+    devices:
+      # CC251
+      - /dev/ttyACM0:/dev/ttyACM0
+      # CC2530 / GBAN GB2530S
+      #- /dev/ttyUSB_cc2530:/dev/ttyACM0
+    restart: always
+    network_mode: host
+    environment:
+      - TZ=Europe/Copenhagen
+    depends_on:
+      mosquitto:
+        condition: service_started
+    
+  influxdb:
+    container_name: influxdb
+    image: influxdb
+    ports:
+      - 8086:8086
+    volumes:
+      - /opt/influxdb/influxdb.conf:/etc/influxdb/influxdb.conf:ro
+      - /opt/influxdb:/var/lib/influxdb
+    restart: on-failure
+    healthcheck:
+      test: ["CMD", "curl", "-sI", "http://127.0.0.1:8086/ping"]
+      interval: 30s
+      timeout: 1s
+      retries: 24
+
+  homebridge:
+    container_name: homebridge
+    image: oznu/homebridge:debian-no-avahi
+    restart: always
+    network_mode: "host"
+    depends_on:
+      zigbee2mqtt:
+        condition: service_started
+      zwave2mqtt:
+        condition: service_started
+    environment:
+      - TZ=Europe/Copenhagen
+      - PGID=1000
+      - PUID=1000
+      - PACKAGES=ffmpeg,camera-ffmpeg,shelly,mqttthing
+      - HOMEBRIDGE_CONFIG_UI=1
+      - HOMEBRIDGE_CONFIG_UI_PORT=8080 
+    volumes:
+      - /opt/homebridge:/homebridge
+
+  homeassistant:
+    container_name: homeassistant
+    image: homeassistant/home-assistant
+    network_mode: "host"
+    volumes:
+      - /opt/homeassistant:/config
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+    restart: on-failure
+    depends_on:
+      influxdb:
+        condition: service_healthy
+      mosquitto:
+        condition: service_started
+      zigbee2mqtt:
+        condition: service_started
+      zwave2mqtt:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8123"]
+      interval: 30s
+      timeout: 10s
+      retries: 6
+
+  configurator:
+    container_name: configurator
+    image: "causticlab/hass-configurator-docker:x86_64"
+    restart: always
+    ports:
+      - "3218:3218/tcp"
+    volumes:
+      - /opt/configurator:/config:rw
+      - /opt/homeassistant:/hass-config
+    restart: on-failure
+    depends_on:
+      homeassistant:
+        condition: service_healthy
+
+
+  node-red:
+    container_name: node-red
+    image: nodered/node-red-docker
+    network_mode: "host"
+    user: "1000" 
+    user: root:root
+    volumes:
+      - /opt/node-red:/data
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    restart: "no" # because the exit code(s) are wrong
+    depends_on:
+      mosquitto:
+        condition: service_started
+      homeassistant:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:1880"]
+      interval: 60s
+      timeout: 30s
+      retries: 5
+
+
+  mosquitto:
+    container_name: mosquitto
+    image: eclipse-mosquitto
+    user: "1000:1000"
+    ports:
+      - 1883:1883
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /opt/mosquitto:/mosquitto/config:ro
+      - /opt/mosquitto:/mosquitto/data
+    restart: on-failure
+
+
+  portainer:
+    container_name: portainer
+    image: portainer/portainer
+    ports:
+      - 9000:9000
+    volumes:
+      - /opt/portainer:/data:rw
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: "no" # because the exit code(s) are wrong
+
+
+  Zigbee2Mq2ttAssistant:
+    container_name: zigbee2mqttassistant
+    image: carldebilly/zigbee2mqttassistant
+    ports:
+      - 8081:80
+    environment:
+      - Z2MA_SETTINGS__MQTTSERVER=bryggers.local.lan
+    volumes:
+      - /opt/zigbee2mqttassistant:/etc/:rw
+    restart: always
+    depends_on:
+      zigbee2mqtt:
+        condition: service_started
+
+  organizr:
+    container_name: organizr
+    image: lsiocommunity/organizr
+    ports:
+      - 80:80
+    volumes:
+      - /opt/organizr:/config:rw
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+    environment:
+      - PGID=1000
+      - PUID=1000
+    restart: on-failure
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  dockermon:
+    container_name: dockermon
+    image: caapm/dockermonitor
+    ports:
+      - 8126:8126
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /opt/dockermon:/config
+    restart: on-failure
+
+  miflora:
+    container_name: miflora
+    network_mode: "host"
+    image: ruimarinho/miflora-mqtt
+    volumes:
+      - /opt/bluetooth:/config
+    environment:
+      - MIFLORA_MQTT_HOSTNAME=bryggers.local.lan
+      - MIFLORA_SENSORS_0_Stuen=C4:7C:8D:6B:21:52
+    restart: on-failure
+  
+  motioneye:
+    container_name: motioneye
+    ports:
+      - 8765:8765
+      - 8082:8082
+      - 8083:8083
+    image: ccrisan/motioneye:master-amd64
+    volumes:
+      - /opt/motioneye:/etc/motioneye
+      - /etc/localtime:/etc/localtime:ro
+      - /opt/motioneye:/var/lib/motioneye
+    environment:
+      - TZ=Europe/Copenhagen
+    restart: always
+
