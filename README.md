@@ -1,2 +1,2 @@
-# hvedevej
-Configuration for the smart home
+# Hvedevej
+Inital Configuration for the smart home. 

@@ -1,17 +1,5 @@
 version: "2.1"
 services:
-  #nginx: 
-  #  image: nginx:latest
-  #  container_name: nginx
-  #  volumes:
-  #    - /opt/nginx/nginx.conf:/etc/nginx/nginx.conf
-  #    - /opt/nginx/logs/:/etc/nginx/
-  #    - /opt/nginx/cache/:/etc/nginx/cache
-  #  ports:
-  #    - 80:80
-  #    - 443:443
-  #  restart: on-failure
-
   grafana:
     container_name: grafana
     image: grafana/grafana
@@ -27,6 +15,23 @@ services:
       influxdb:
         condition: service_healthy
 
+  mariadb:
+    image: linuxserver/mariadb
+    container_name: mariadb
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - MYSQL_ROOT_PASSWORD=
+      - TZ=Europe/Copenhagen
+      - MYSQL_DATABASE=
+      - MYSQL_USER=
+      - MYSQL_PASSWORD=
+    volumes:
+      - /opt/mysql:/config
+    ports:
+      - 3306:3306
+    restart: unless-stopped
+
   zwave2mqtt:
     container_name: zwave2mqtt
     image: robertslando/zwave2mqtt:latest
@@ -35,13 +40,14 @@ services:
     stop_signal: SIGINT
     network_mode: "host"
     devices:
-      - "/dev/ttyACM1:/dev/ttyACM1"
+      - "/dev/ttyUSB1:/dev/ttyUSB0"
     volumes:
       - /opt/zwave2mqtt:/usr/src/app/store
+    environment:
+      - TZ=Europe/Copenhagen
     depends_on:
       mosquitto:
         condition: service_started
-      
 
   zigbee2mqtt:
     container_name: zigbee2mqtt
@@ -60,15 +66,21 @@ services:
     depends_on:
       mosquitto:
         condition: service_started
-    
+
   influxdb:
     container_name: influxdb
     image: influxdb
     ports:
       - 8086:8086
+      - 8083:8083
+      - 8090:8090
     volumes:
       - /opt/influxdb/influxdb.conf:/etc/influxdb/influxdb.conf:ro
       - /opt/influxdb:/var/lib/influxdb
+    environment:
+      - INFLUXDB_DB=hass
+      - INFLUXDB_ADMIN_USER=
+      - INFLUXDB_ADMIN_PASSWORD=
     restart: on-failure
     healthcheck:
       test: ["CMD", "curl", "-sI", "http://127.0.0.1:8086/ping"]
@@ -84,41 +96,48 @@ services:
     depends_on:
       zigbee2mqtt:
         condition: service_started
-      zwave2mqtt:
-        condition: service_started
     environment:
       - TZ=Europe/Copenhagen
       - PGID=1000
       - PUID=1000
       - PACKAGES=ffmpeg,camera-ffmpeg,shelly,mqttthing
       - HOMEBRIDGE_CONFIG_UI=1
-      - HOMEBRIDGE_CONFIG_UI_PORT=8080 
+      - HOMEBRIDGE_CONFIG_UI_PORT=8080
     volumes:
       - /opt/homebridge:/homebridge
 
-  homeassistant:
-    container_name: homeassistant
-    image: homeassistant/home-assistant
-    network_mode: "host"
+  homeassistant_zwave:
+    container_name: homeassistant_zwave
+    image: homeassistant/home-assistant:latest
+    ports:
+      - "8124:8123/tcp"
+    privileged: true
     volumes:
-      - /opt/homeassistant:/config
+      - /opt/homeassistant_zwave:/config
       - /etc/localtime:/etc/localtime:ro
       - /etc/letsencrypt:/etc/letsencrypt:ro
     restart: on-failure
     depends_on:
-      influxdb:
-        condition: service_healthy
       mosquitto:
         condition: service_started
-      zigbee2mqtt:
-        condition: service_started
-      zwave2mqtt:
-        condition: service_started
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://127.0.0.1:8123"]
-      interval: 30s
-      timeout: 10s
-      retries: 6
+
+  openzwave:
+    image: openzwave/ozwdaemon:latest
+    container_name: "openzwave"
+    network_mode: "host"
+    security_opt:
+      - seccomp:unconfined
+    devices:
+      - "/dev/ttyACM1:/dev/ttyACM0"
+    volumes:
+      - /opt/ozw:/opt/ozw/config
+    environment:
+      MQTT_SERVER: ""
+      MQTT_USERNAME: ""
+      MQTT_PASSWORD: ""
+      USB_PATH: "/dev/ttyACM0"
+      OZW_NETWORK_KEY: ""
+    restart: unless-stopped
 
   configurator:
     container_name: configurator
@@ -130,33 +149,28 @@ services:
       - /opt/configurator:/config:rw
       - /opt/homeassistant:/hass-config
     restart: on-failure
-    depends_on:
-      homeassistant:
-        condition: service_healthy
-
 
   node-red:
     container_name: node-red
     image: nodered/node-red-docker
     network_mode: "host"
-    user: "1000" 
+    user: "1000"
     user: root:root
     volumes:
       - /opt/node-red:/data
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
-    restart: "no" # because the exit code(s) are wrong
+    restart: "no" 
+    environment:
+      - TZ=Europe/Copenhagen
     depends_on:
       mosquitto:
         condition: service_started
-      homeassistant:
-        condition: service_healthy
     healthcheck:
       test: ["CMD", "curl", "-f", "http://127.0.0.1:1880"]
       interval: 60s
       timeout: 30s
       retries: 5
-
 
   mosquitto:
     container_name: mosquitto
@@ -170,7 +184,6 @@ services:
       - /opt/mosquitto:/mosquitto/data
     restart: on-failure
 
-
   portainer:
     container_name: portainer
     image: portainer/portainer
@@ -179,8 +192,14 @@ services:
     volumes:
       - /opt/portainer:/data:rw
       - /var/run/docker.sock:/var/run/docker.sock
-    restart: "no" # because the exit code(s) are wrong
+    restart: "no" 
 
+  eloverblik:
+    container_name: eloverblik
+    image: eloverblik:latest
+    volumes:
+      - /opt/eloverblik/config:/usr/app/eloverblik/config:rw
+    restart: "no" 
 
   Zigbee2Mq2ttAssistant:
     container_name: zigbee2mqttassistant
@@ -188,7 +207,7 @@ services:
     ports:
       - 8081:80
     environment:
-      - Z2MA_SETTINGS__MQTTSERVER=bryggers.local.lan
+      - Z2MA_SETTINGS__MQTTSERVER=
     volumes:
       - /opt/zigbee2mqttassistant:/etc/:rw
     restart: always
@@ -196,11 +215,40 @@ services:
       zigbee2mqtt:
         condition: service_started
 
+  hue:
+    container_name: hue
+    image: emulated_hue:1.1
+    network_mode: "host"
+    volumes:
+      - /opt/hue:/data
+    environment:
+      - PGID=1000
+      - PUID=1000
+      - TOKEN=
+      - URL=
+    restart: on-failure
+
+  telegraf:
+    container_name: telegraf
+    image: telegraf:latest
+    environment:
+      HOST_PROC: /rootfs/proc
+      HOST_SYS: /rootfs/sys
+      HOST_ETC: /rootfs/etc
+    network_mode: "host"
+    volumes:
+      - /opt/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /sys:/rootfs/sys:ro
+      - /proc:/rootfs/proc:ro
+      - /etc:/rootfs/etc:ro
+    restart: always
+
   organizr:
     container_name: organizr
     image: lsiocommunity/organizr
     ports:
-      - 80:80
+      - 100:80
     volumes:
       - /opt/organizr:/config:rw
       - /etc/letsencrypt:/etc/letsencrypt:ro
@@ -214,39 +262,296 @@ services:
       timeout: 10s
       retries: 5
 
-  dockermon:
-    container_name: dockermon
-    image: caapm/dockermonitor
-    ports:
-      - 8126:8126
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /opt/dockermon:/config
-    restart: on-failure
-
-  miflora:
-    container_name: miflora
+  esphome:
+    container_name: esphome
+    image: esphome/esphome
     network_mode: "host"
-    image: ruimarinho/miflora-mqtt
+    user: "1000"
+    user: root:root
     volumes:
-      - /opt/bluetooth:/config
-    environment:
-      - MIFLORA_MQTT_HOSTNAME=bryggers.local.lan
-      - MIFLORA_SENSORS_0_Stuen=C4:7C:8D:6B:21:52
-    restart: on-failure
-  
-  motioneye:
-    container_name: motioneye
-    ports:
-      - 8765:8765
-      - 8082:8082
-      - 8083:8083
-    image: ccrisan/motioneye:master-amd64
-    volumes:
-      - /opt/motioneye:/etc/motioneye
-      - /etc/localtime:/etc/localtime:ro
-      - /opt/motioneye:/var/lib/motioneye
-    environment:
-      - TZ=Europe/Copenhagen
-    restart: always
+      - /opt/esphome:/config
+    restart: "no" 
 
+  chronograf:
+    container_name: chronograf
+    restart: unless-stopped
+    image: chronograf
+    depends_on:
+      - "influxdb"
+    volumes:
+      - /opt/chronograf:/var/lib/chronograf
+    ports:
+      - "8888:8888"
+
+  syncthing:
+    container_name: syncthing
+    restart: unless-stopped
+    image: linuxserver/syncthing
+    volumes:
+      - /opt/syncthing:/config
+      - /opt:/sync
+      - /etc/localtime:/etc/localtime:ro
+    network_mode: host
+    environment:
+      - PGID=0
+      - PUID=0
+
+## Backup of Projects
+#
+
+#  homeassistant_zigbee:
+#    container_name: homeassistant_zigbee
+#    image: homeassistant/home-assistant:latest
+#    ports:
+#      - "8125:8123/tcp"
+#    privileged: true
+#    volumes:
+#      - /opt/homeassistant_zigbee:/config
+#      - /etc/localtime:/etc/localtime:ro
+#      - /etc/letsencrypt:/etc/letsencrypt:ro
+#    restart: on-failure
+#    devices:
+#     - "/dev/ttyACM2:/dev/ttyACM2"
+#    depends_on:
+#      mosquitto:
+#        condition: service_started
+
+#  bluetooth2mqtt:
+#    container_name: bluetooth2mqtt
+#    network_mode: "host"
+#    image: zewelor/bt-mqtt-gateway
+#    cap_add:
+#      - ALL
+#    volumes:
+#      - /opt/bluetooth/config.yaml:/config.yaml
+#    restart: on-failure
+
+#  miflora:
+#    container_name: miflora
+#    network_mode: "host"
+#    image: ruimarinho/miflora-mqtt
+#    volumes:
+#      - /opt/bluetooth:/config
+#    environment:
+#      - MIFLORA_MQTT_HOSTNAME=
+#      - MIFLORA_SENSORS_0_Stuen=
+#    restart: on-failure
+
+#  motioneye:
+#    container_name: motioneye
+#    ports:
+#      - 8765:8765
+#      - 8082:8082
+#      - 8084:8084
+#    image: ccrisan/motioneye:master-amd64
+#    volumes:
+#      - /opt/motioneye:/etc/motioneye
+#      - /etc/localtime:/etc/localtime:ro
+#      - /opt/motioneye:/var/lib/motioneye
+#    environment:
+#      - TZ=Europe/Copenhagen
+#    restart: always
+
+#  mozillaiot:
+#    container_name: mozillaiot
+#    restart: unless-stopped
+#    image: mozillaiot/gateway:latest
+#    volumes:
+#      - /opt/mozillaiot:/home/node/.mozilla-iot
+#      - /etc/localtime:/etc/localtime:ro
+#    ports:
+#      - 9090:8080
+#      - 4443:4443
+#    environment:
+#      - TZ=Europe/Copenhagen
+
+#  bluetooth-audio:
+#    container_name: bluetooth-audio
+#    image: bluetooth-audio:latest
+#    restart: always
+#    network_mode: host
+#    privileged: true
+#    labels:
+#      io.balena.features.dbus: 1
+#      volumes:
+#        - bluetoothcache:/var/cache/bluetooth
+#        - snapcast:/var/cache/snapcast
+
+#  airplay:
+#    container_name: airplay
+#    image: airplay:latest
+#    restart: always
+#    network_mode: host
+#    privileged: true
+#    labels:
+#      io.balena.features.dbus: 1
+#    volumes:
+#      - /opt/balena-sound/snapcast:/var/cache/snapcast
+
+#  spotify:
+#    build: ./spotify
+#    restart: always
+#    network_mode: host
+#    privileged: true
+#    volumes:
+#      - spotifycache:/var/cache/raspotify
+#      - snapcast:/var/cache/snapcast
+
+#  fleet-supervisor:
+#    container_name: fleet-supervisor
+#    image: fleet-supervisor:latest
+#    restart: on-failure
+#    network_mode: host
+#    privileged: true
+#    ports:
+#      - 3000:3000
+#    labels:
+#      io.balena.features.supervisor-api: 1
+
+#  snapcast-server:
+#    container_name: snapcast-server
+#    image: snapcast-server:latest
+#    restart: on-failure
+#    ports:
+#      - 1704:1704
+#      - 1705:1705
+#    volumes:
+#      - /opt/balena-sound/snapcast:/var/cache/snapcast
+
+#  snapcast-client:
+#    container_name: snapcast-client
+#    image: snapcast-client:latest
+#    restart: on-failure
+#    network_mode: host
+#    privileged: true
+#    volumes:
+#      - /opt/balena-sound/snapcast:/var/cache/snapcast
+
+#  deepstack:
+#    image: deepquestai/deepstack:latest
+#    container_name: deepstack
+#    hostname: deepstack
+#    volumes:
+#      - /opt/deepstack:/datastore
+#      - /etc/localtime:/etc/localtime:ro
+#    environment:
+#      - VISION-DETECTION=True
+#    ports:
+#      - 5000:5000
+#    restart: unless-stopped
+
+#  frigate:
+#    container_name: frigate
+#    restart: unless-stopped
+#    privileged: true
+#    shm_size: '1g' # should work for 5-7 cameras
+#    image: blakeblackshear/frigate:stable
+#    volumes:
+#      - /dev/bus/usb:/dev/bus/usb
+#      - /etc/localtime:/etc/localtime:ro
+#      - /opt/frigate:/config
+#    ports:
+#      - "5000:5000"
+#    environment:
+#      FRIGATE_RTSP_PASSWORD: ""
+
+#  watchtower:
+#    container_name: watchtower
+#    image: v2tec/watchtower
+#    restart: unless-stopped
+#    hostname: Bryggers
+#    volumes:
+#    - /var/run/docker.sock:/var/run/docker.sock:ro
+#    - /etc/localtime:/etc/localtime:ro
+#    environment:
+#    - WATCHTOWER_NOTIFICATIONS=email
+#    - WATCHTOWER_NOTIFICATION_EMAIL_FROM=
+#    - WATCHTOWER_NOTIFICATION_EMAIL_TO=
+#    - WATCHTOWER_NOTIFICATION_EMAIL_SERVER=
+#    - WATCHTOWER_NOTIFICATION_EMAIL_SERVER_USER=
+#    - WATCHTOWER_NOTIFICATION_EMAIL_SERVER_PASSWORD=
+#    - PGID=100
+#    - PUID=99
+#    command: --debug --label-enable --cleanup --interval 300
+#    labels:
+#    - "com.centurylinklabs.watchtower.enable=true"
+
+#  openhab:
+#    #image: "openhab/openhab:2.5.2"
+#    image: "openhab/openhab:3.0.0-snapshot-debian"
+#    container_name: openhab
+#    restart: always
+#    ports:
+#      - 6060:8080
+#      - 8443:8443
+#    devices:
+#      - "/dev/ttyACM0:/dev/ttyACM0"
+#    volumes:
+#      - "/etc/localtime:/etc/localtime:ro"
+#      - "/etc/timezone:/etc/timezone:ro"
+#      - "/opt/openhab/addons:/openhab/addons"
+#      - "/opt/openhab/conf:/openhab/conf"
+#      - "/opt/openhab/userdata:/openhab/userdata"
+#    environment:
+#      OPENHAB_HTTP_PORT: "8080"
+#      OPENHAB_HTTPS_PORT: "8443"
+#      EXTRA_JAVA_OPTS: "-Duser.timezone=Europe/Copenhagen"
+
+
+#  dockermon:
+#    container_name: dockermon
+#    image: caapm/dockermonitor
+#    ports:
+#      - 8126:8126
+#    volumes:
+#      - /var/run/docker.sock:/var/run/docker.sock
+#      - /opt/dockermon:/config
+#    restart: on-failure
+
+
+#  hoobs:
+#    container_name: hoobs
+#    image: hoobs/hoobs
+#    restart: always
+#    ports:
+#      - 8080:8080
+#      - 8181:8181
+#      - 51826:51826
+#    depends_on:
+#      zigbee2mqtt:
+#        condition: service_started
+#      zwave2mqtt:
+#        condition: service_started
+#    environment:
+#      - TZ=Europe/Copenhagen
+#      - PGID=1000
+#      - PUID=1000
+#      - PACKAGES=ffmpeg,camera-ffmpeg,shelly,mqttthing
+#    volumes:
+#      - /opt/hoobs:/hoobs
+
+#nginx:
+#  image: nginx:latest
+#  container_name: nginx
+#  volumes:
+#    - /opt/nginx/nginx.conf:/etc/nginx/nginx.conf
+#    - /opt/nginx/logs/:/etc/nginx/
+#    - /opt/nginx/cache/:/etc/nginx/cache
+#  ports:
+#    - 80:80
+#    - 443:443
+#  restart: on-failure
+
+#  hacc:
+#    image: qjake/hacc:latest
+#    container_name: hacc
+#    volumes:
+#      - /opt/hacc/config.json:/app/config.json
+#      - /etc/localtime:/etc/localtime:ro
+#    environment:
+#      - PUID=1000
+#      - PGID=1000
+#      - TZ=Europe/Copenhagen
+#    ports:
+#      - 8095:8095
+#    restart: always

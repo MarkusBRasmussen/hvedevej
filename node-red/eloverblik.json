@@ -1,0 +1,568 @@
+[
+    {
+        "id": "241dc9d7.bb34b6",
+        "type": "server-state-changed",
+        "z": "20223833.ea1348",
+        "name": "Kl 01:00",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.time",
+        "entityidfiltertype": "exact",
+        "outputinitially": false,
+        "state_type": "str",
+        "haltifstate": "01:00",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 2,
+        "output_only_on_state_change": true,
+        "x": 120,
+        "y": 100,
+        "wires": [
+            [
+                "2c6aa0cd.4a937"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "2c6aa0cd.4a937",
+        "type": "api-current-state",
+        "z": "20223833.ea1348",
+        "name": "",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "override_topic": false,
+        "entity_id": "sensor.eloverblik_energy_total",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 400,
+        "y": 94,
+        "wires": [
+            [
+                "f4b1a5f9.98dff8"
+            ]
+        ]
+    },
+    {
+        "id": "f4b1a5f9.98dff8",
+        "type": "change",
+        "z": "20223833.ea1348",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "samletForbrug",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 730,
+        "y": 94,
+        "wires": [
+            [
+                "77a7735f.808cfc"
+            ]
+        ]
+    },
+    {
+        "id": "77a7735f.808cfc",
+        "type": "ha-entity",
+        "z": "20223833.ea1348",
+        "name": "igaars_el_forbrug_samlet",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "debugenabled": false,
+        "outputs": 1,
+        "entityType": "sensor",
+        "config": [
+            {
+                "property": "name",
+                "value": "energy_hvedevej_yesterday"
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": "mdi:power-plug"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "kWh"
+            }
+        ],
+        "state": "payload",
+        "stateType": "msg",
+        "attributes": [],
+        "resend": true,
+        "outputLocation": "",
+        "outputLocationType": "none",
+        "inputOverride": "allow",
+        "x": 1000,
+        "y": 94,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "60e727c8.827ab8",
+        "type": "server-state-changed",
+        "z": "20223833.ea1348",
+        "name": "Kl 01:02",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.time",
+        "entityidfiltertype": "exact",
+        "outputinitially": false,
+        "state_type": "str",
+        "haltifstate": "01:02",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 2,
+        "output_only_on_state_change": true,
+        "x": 120,
+        "y": 340,
+        "wires": [
+            [
+                "bcced957.603e08",
+                "3c7917c1.6495b8"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "bcced957.603e08",
+        "type": "api-current-state",
+        "z": "20223833.ea1348",
+        "name": "igårs forbrug",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "override_topic": false,
+        "entity_id": "sensor.energy_hvedevej_yesterday",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 340,
+        "y": 300,
+        "wires": [
+            [
+                "f1976565.4e0618"
+            ]
+        ]
+    },
+    {
+        "id": "3c7917c1.6495b8",
+        "type": "api-current-state",
+        "z": "20223833.ea1348",
+        "name": "Måned løbende",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "override_topic": false,
+        "entity_id": "sensor.energy_hvedevej_month",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 340,
+        "y": 348,
+        "wires": [
+            [
+                "7f719e00.0cb4d4"
+            ]
+        ]
+    },
+    {
+        "id": "7f719e00.0cb4d4",
+        "type": "change",
+        "z": "20223833.ea1348",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "var2",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 530,
+        "y": 348,
+        "wires": [
+            [
+                "7df9bbe6.c00ea4"
+            ]
+        ]
+    },
+    {
+        "id": "f1976565.4e0618",
+        "type": "change",
+        "z": "20223833.ea1348",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "var1",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 530,
+        "y": 300,
+        "wires": [
+            [
+                "7df9bbe6.c00ea4"
+            ]
+        ]
+    },
+    {
+        "id": "7df9bbe6.c00ea4",
+        "type": "change",
+        "z": "20223833.ea1348",
+        "name": "sum",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$number($flowContext('var1')) + $number($flowContext('var2'))",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 690,
+        "y": 320,
+        "wires": [
+            [
+                "78f70fe9.ba377"
+            ]
+        ]
+    },
+    {
+        "id": "78f70fe9.ba377",
+        "type": "ha-entity",
+        "z": "20223833.ea1348",
+        "name": "samlet_forbrug_for_måneden",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "debugenabled": false,
+        "outputs": 1,
+        "entityType": "sensor",
+        "config": [
+            {
+                "property": "name",
+                "value": "energy_hvedevej_month"
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": "mdi:power-plug"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "kWh"
+            }
+        ],
+        "state": "payload",
+        "stateType": "msg",
+        "attributes": [],
+        "resend": true,
+        "outputLocation": "",
+        "outputLocationType": "none",
+        "inputOverride": "allow",
+        "x": 1010,
+        "y": 320,
+        "wires": [
+            [
+                "c5062180.4c28"
+            ]
+        ]
+    },
+    {
+        "id": "c5062180.4c28",
+        "type": "debug",
+        "z": "20223833.ea1348",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1260,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "c4db9cf2.90fd",
+        "type": "inject",
+        "z": "20223833.ea1348",
+        "name": "Reset Manual",
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 970,
+        "y": 540,
+        "wires": [
+            [
+                "78f70fe9.ba377"
+            ]
+        ]
+    },
+    {
+        "id": "fcc1e1d.137b42",
+        "type": "change",
+        "z": "20223833.ea1348",
+        "name": "sæt payload til 0",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 750,
+        "y": 540,
+        "wires": [
+            [
+                "78f70fe9.ba377"
+            ]
+        ]
+    },
+    {
+        "id": "ed9212b2.64dfe",
+        "type": "switch",
+        "z": "20223833.ea1348",
+        "name": "d. 02 kl 00:55 hver måned",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "2021-01-02, 00:55",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2021-02-02, 00:55",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2020-02-03, 00:55",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2020-02-04, 00:55",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2020-02-05, 00:55",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2020-02-06, 00:55",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2020-02-07, 00:55",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2020-02-08, 00:55",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2020-02-09, 00:55",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2020-02-10, 00:55",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2020-02-11, 00:55",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2020-02-12, 00:55",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 12,
+        "x": 400,
+        "y": 540,
+        "wires": [
+            [
+                "fcc1e1d.137b42"
+            ],
+            [
+                "fcc1e1d.137b42"
+            ],
+            [
+                "fcc1e1d.137b42"
+            ],
+            [
+                "fcc1e1d.137b42"
+            ],
+            [
+                "fcc1e1d.137b42"
+            ],
+            [
+                "fcc1e1d.137b42"
+            ],
+            [
+                "fcc1e1d.137b42"
+            ],
+            [
+                "fcc1e1d.137b42"
+            ],
+            [
+                "fcc1e1d.137b42"
+            ],
+            [
+                "fcc1e1d.137b42"
+            ],
+            [
+                "fcc1e1d.137b42"
+            ],
+            [
+                "fcc1e1d.137b42"
+            ]
+        ]
+    },
+    {
+        "id": "2889d2d5.feface",
+        "type": "server-state-changed",
+        "z": "20223833.ea1348",
+        "name": "dato & tid",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.date_time",
+        "entityidfiltertype": "exact",
+        "outputinitially": false,
+        "state_type": "str",
+        "haltifstate": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 1,
+        "output_only_on_state_change": true,
+        "x": 120,
+        "y": 540,
+        "wires": [
+            [
+                "ed9212b2.64dfe"
+            ]
+        ]
+    },
+    {
+        "id": "31cdcbe7.9c8bf4",
+        "type": "server",
+        "z": "",
+        "name": "Home Assistant",
+        "legacy": false,
+        "rejectUnauthorizedCerts": false,
+        "ha_boolean": "y|yes|true|on|home|open",
+        "connectionDelay": true,
+        "cacheJson": true
+    }
+]

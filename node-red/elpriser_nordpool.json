@@ -1,0 +1,1590 @@
+[
+    {
+        "id": "e1883605.668da8",
+        "type": "server-state-changed",
+        "z": "20223833.ea1348",
+        "name": "Kl 01:30",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.time",
+        "entityidfiltertype": "exact",
+        "outputinitially": false,
+        "state_type": "str",
+        "haltifstate": "01:30",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 2,
+        "output_only_on_state_change": true,
+        "x": 1580,
+        "y": 780,
+        "wires": [
+            [
+                "e2a9ef27.5ff04"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "9080ac9e.e4b8a",
+        "type": "ha-entity",
+        "z": "20223833.ea1348",
+        "name": "energyprices_hvedevej",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "debugenabled": false,
+        "outputs": 1,
+        "entityType": "sensor",
+        "config": [
+            {
+                "property": "name",
+                "value": "energyprices_hvedevej"
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": "mdi:cash"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "DKK/kWh"
+            }
+        ],
+        "state": "payload",
+        "stateType": "msg",
+        "attributes": [],
+        "resend": true,
+        "outputLocation": "",
+        "outputLocationType": "none",
+        "inputOverride": "allow",
+        "x": 2510,
+        "y": 1440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e2a9ef27.5ff04",
+        "type": "api-current-state",
+        "z": "20223833.ea1348",
+        "name": "",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "outputs": 2,
+        "halt_if": "unknown",
+        "halt_if_type": "str",
+        "halt_if_compare": "is_not",
+        "override_topic": false,
+        "entity_id": "sensor.nordpool_today_hr_01_02",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 1880,
+        "y": 780,
+        "wires": [
+            [
+                "9080ac9e.e4b8a"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "b56a738e.d0a7c",
+        "type": "server-state-changed",
+        "z": "20223833.ea1348",
+        "name": "Kl 00:30",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.time",
+        "entityidfiltertype": "exact",
+        "outputinitially": false,
+        "state_type": "str",
+        "haltifstate": "00:30",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 2,
+        "output_only_on_state_change": true,
+        "x": 1580,
+        "y": 720,
+        "wires": [
+            [
+                "76e9e442.ddbc5c"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "76e9e442.ddbc5c",
+        "type": "api-current-state",
+        "z": "20223833.ea1348",
+        "name": "",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "outputs": 2,
+        "halt_if": "unknown",
+        "halt_if_type": "str",
+        "halt_if_compare": "is_not",
+        "override_topic": false,
+        "entity_id": "sensor.nordpool_today_hr_00_01",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 1880,
+        "y": 720,
+        "wires": [
+            [
+                "9080ac9e.e4b8a"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "83cc1481.1bf908",
+        "type": "server-state-changed",
+        "z": "20223833.ea1348",
+        "name": "Kl 02:30",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.time",
+        "entityidfiltertype": "exact",
+        "outputinitially": false,
+        "state_type": "str",
+        "haltifstate": "02:30",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 2,
+        "output_only_on_state_change": true,
+        "x": 1580,
+        "y": 840,
+        "wires": [
+            [
+                "4177a569.62e68c"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "4177a569.62e68c",
+        "type": "api-current-state",
+        "z": "20223833.ea1348",
+        "name": "",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "outputs": 2,
+        "halt_if": "unknown",
+        "halt_if_type": "str",
+        "halt_if_compare": "is_not",
+        "override_topic": false,
+        "entity_id": "sensor.nordpool_today_hr_02_03",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 1880,
+        "y": 840,
+        "wires": [
+            [
+                "9080ac9e.e4b8a"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "b31800e3.94888",
+        "type": "server-state-changed",
+        "z": "20223833.ea1348",
+        "name": "Kl 03:30",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.time",
+        "entityidfiltertype": "exact",
+        "outputinitially": false,
+        "state_type": "str",
+        "haltifstate": "03:30",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 2,
+        "output_only_on_state_change": true,
+        "x": 1580,
+        "y": 900,
+        "wires": [
+            [
+                "200c7e1.dc36182"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "200c7e1.dc36182",
+        "type": "api-current-state",
+        "z": "20223833.ea1348",
+        "name": "",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "outputs": 2,
+        "halt_if": "unknown",
+        "halt_if_type": "str",
+        "halt_if_compare": "is_not",
+        "override_topic": false,
+        "entity_id": "sensor.nordpool_today_hr_03_04",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 1880,
+        "y": 900,
+        "wires": [
+            [
+                "9080ac9e.e4b8a"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "791c6f90.90c3c",
+        "type": "server-state-changed",
+        "z": "20223833.ea1348",
+        "name": "Kl 04:30",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.time",
+        "entityidfiltertype": "exact",
+        "outputinitially": false,
+        "state_type": "str",
+        "haltifstate": "04:30",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 2,
+        "output_only_on_state_change": true,
+        "x": 1580,
+        "y": 960,
+        "wires": [
+            [
+                "de938b4b.3fa9c8"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "de938b4b.3fa9c8",
+        "type": "api-current-state",
+        "z": "20223833.ea1348",
+        "name": "",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "outputs": 2,
+        "halt_if": "unknown",
+        "halt_if_type": "str",
+        "halt_if_compare": "is_not",
+        "override_topic": false,
+        "entity_id": "sensor.nordpool_today_hr_04_05",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 1880,
+        "y": 960,
+        "wires": [
+            [
+                "9080ac9e.e4b8a"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "b1d2a22d.08576",
+        "type": "server-state-changed",
+        "z": "20223833.ea1348",
+        "name": "Kl 05:30",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.time",
+        "entityidfiltertype": "exact",
+        "outputinitially": false,
+        "state_type": "str",
+        "haltifstate": "05:30",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 2,
+        "output_only_on_state_change": true,
+        "x": 1580,
+        "y": 1020,
+        "wires": [
+            [
+                "85d77bd5.a6f2f8"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "85d77bd5.a6f2f8",
+        "type": "api-current-state",
+        "z": "20223833.ea1348",
+        "name": "",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "outputs": 2,
+        "halt_if": "unknown",
+        "halt_if_type": "str",
+        "halt_if_compare": "is_not",
+        "override_topic": false,
+        "entity_id": "sensor.nordpool_today_hr_05_06",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 1880,
+        "y": 1020,
+        "wires": [
+            [
+                "9080ac9e.e4b8a"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "38dcea1a.797696",
+        "type": "server-state-changed",
+        "z": "20223833.ea1348",
+        "name": "Kl 06:30",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.time",
+        "entityidfiltertype": "exact",
+        "outputinitially": false,
+        "state_type": "str",
+        "haltifstate": "06:30",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 2,
+        "output_only_on_state_change": true,
+        "x": 1580,
+        "y": 1080,
+        "wires": [
+            [
+                "28160f2b.136ac"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "28160f2b.136ac",
+        "type": "api-current-state",
+        "z": "20223833.ea1348",
+        "name": "",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "outputs": 2,
+        "halt_if": "unknown",
+        "halt_if_type": "str",
+        "halt_if_compare": "is_not",
+        "override_topic": false,
+        "entity_id": "sensor.nordpool_today_hr_06_07",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 1880,
+        "y": 1080,
+        "wires": [
+            [
+                "9080ac9e.e4b8a"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "429522a.c3558dc",
+        "type": "server-state-changed",
+        "z": "20223833.ea1348",
+        "name": "Kl 07:30",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.time",
+        "entityidfiltertype": "exact",
+        "outputinitially": false,
+        "state_type": "str",
+        "haltifstate": "07:30",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 2,
+        "output_only_on_state_change": true,
+        "x": 1580,
+        "y": 1140,
+        "wires": [
+            [
+                "a64a1915.4459f8"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "a64a1915.4459f8",
+        "type": "api-current-state",
+        "z": "20223833.ea1348",
+        "name": "",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "outputs": 2,
+        "halt_if": "unknown",
+        "halt_if_type": "str",
+        "halt_if_compare": "is_not",
+        "override_topic": false,
+        "entity_id": "sensor.nordpool_today_hr_07_08",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 1880,
+        "y": 1140,
+        "wires": [
+            [
+                "9080ac9e.e4b8a"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "39bf7d38.7f0ea2",
+        "type": "server-state-changed",
+        "z": "20223833.ea1348",
+        "name": "Kl 08:30",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.time",
+        "entityidfiltertype": "exact",
+        "outputinitially": false,
+        "state_type": "str",
+        "haltifstate": "08:30",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 2,
+        "output_only_on_state_change": true,
+        "x": 1580,
+        "y": 1200,
+        "wires": [
+            [
+                "dfc8c480.9c15d8"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "dfc8c480.9c15d8",
+        "type": "api-current-state",
+        "z": "20223833.ea1348",
+        "name": "",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "outputs": 2,
+        "halt_if": "unknown",
+        "halt_if_type": "str",
+        "halt_if_compare": "is_not",
+        "override_topic": false,
+        "entity_id": "sensor.nordpool_today_hr_08_09",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 1880,
+        "y": 1200,
+        "wires": [
+            [
+                "9080ac9e.e4b8a"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "abb9749b.f1c2c8",
+        "type": "server-state-changed",
+        "z": "20223833.ea1348",
+        "name": "Kl 09:30",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.time",
+        "entityidfiltertype": "exact",
+        "outputinitially": false,
+        "state_type": "str",
+        "haltifstate": "09:30",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 2,
+        "output_only_on_state_change": true,
+        "x": 1580,
+        "y": 1260,
+        "wires": [
+            [
+                "bb5cb79e.9f1e68"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "bb5cb79e.9f1e68",
+        "type": "api-current-state",
+        "z": "20223833.ea1348",
+        "name": "",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "outputs": 2,
+        "halt_if": "unknown",
+        "halt_if_type": "str",
+        "halt_if_compare": "is_not",
+        "override_topic": false,
+        "entity_id": "sensor.nordpool_today_hr_09_10",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 1870,
+        "y": 1260,
+        "wires": [
+            [
+                "9080ac9e.e4b8a"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "20a50861.60e168",
+        "type": "server-state-changed",
+        "z": "20223833.ea1348",
+        "name": "Kl 10:30",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.time",
+        "entityidfiltertype": "exact",
+        "outputinitially": false,
+        "state_type": "str",
+        "haltifstate": "10:30",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 2,
+        "output_only_on_state_change": true,
+        "x": 1580,
+        "y": 1320,
+        "wires": [
+            [
+                "ef2af2b.07c791"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "ef2af2b.07c791",
+        "type": "api-current-state",
+        "z": "20223833.ea1348",
+        "name": "",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "outputs": 2,
+        "halt_if": "unknown",
+        "halt_if_type": "str",
+        "halt_if_compare": "is_not",
+        "override_topic": false,
+        "entity_id": "sensor.nordpool_today_hr_10_11",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 1880,
+        "y": 1320,
+        "wires": [
+            [
+                "9080ac9e.e4b8a"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "bf4f6322.72572",
+        "type": "server-state-changed",
+        "z": "20223833.ea1348",
+        "name": "Kl 11:30",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.time",
+        "entityidfiltertype": "exact",
+        "outputinitially": false,
+        "state_type": "str",
+        "haltifstate": "11:30",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 2,
+        "output_only_on_state_change": true,
+        "x": 1570,
+        "y": 1380,
+        "wires": [
+            [
+                "e8b948b2.20ff48"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "e8b948b2.20ff48",
+        "type": "api-current-state",
+        "z": "20223833.ea1348",
+        "name": "",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "outputs": 2,
+        "halt_if": "unknown",
+        "halt_if_type": "str",
+        "halt_if_compare": "is_not",
+        "override_topic": false,
+        "entity_id": "sensor.nordpool_today_hr_11_12",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 1880,
+        "y": 1380,
+        "wires": [
+            [
+                "9080ac9e.e4b8a"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "536bb209.e7f8fc",
+        "type": "server-state-changed",
+        "z": "20223833.ea1348",
+        "name": "Kl 12:30",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.time",
+        "entityidfiltertype": "exact",
+        "outputinitially": false,
+        "state_type": "str",
+        "haltifstate": "12:30",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 2,
+        "output_only_on_state_change": true,
+        "x": 1580,
+        "y": 1440,
+        "wires": [
+            [
+                "e6e3aeba.7b304"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "e6e3aeba.7b304",
+        "type": "api-current-state",
+        "z": "20223833.ea1348",
+        "name": "",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "outputs": 2,
+        "halt_if": "unknown",
+        "halt_if_type": "str",
+        "halt_if_compare": "is_not",
+        "override_topic": false,
+        "entity_id": "sensor.nordpool_today_hr_12_13",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 1880,
+        "y": 1440,
+        "wires": [
+            [
+                "9080ac9e.e4b8a"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "73621b8e.615964",
+        "type": "server-state-changed",
+        "z": "20223833.ea1348",
+        "name": "Kl 13:30",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.time",
+        "entityidfiltertype": "exact",
+        "outputinitially": false,
+        "state_type": "str",
+        "haltifstate": "13:30",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 2,
+        "output_only_on_state_change": true,
+        "x": 1580,
+        "y": 1500,
+        "wires": [
+            [
+                "b548d241.dd128"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "b548d241.dd128",
+        "type": "api-current-state",
+        "z": "20223833.ea1348",
+        "name": "",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "outputs": 2,
+        "halt_if": "unknown",
+        "halt_if_type": "str",
+        "halt_if_compare": "is_not",
+        "override_topic": false,
+        "entity_id": "sensor.nordpool_today_hr_13_14",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 1880,
+        "y": 1500,
+        "wires": [
+            [
+                "9080ac9e.e4b8a"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "24ac7dc5.e901e2",
+        "type": "server-state-changed",
+        "z": "20223833.ea1348",
+        "name": "Kl 14:30",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.time",
+        "entityidfiltertype": "exact",
+        "outputinitially": false,
+        "state_type": "str",
+        "haltifstate": "14:30",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 2,
+        "output_only_on_state_change": true,
+        "x": 1580,
+        "y": 1560,
+        "wires": [
+            [
+                "471acdae.b53ad4"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "471acdae.b53ad4",
+        "type": "api-current-state",
+        "z": "20223833.ea1348",
+        "name": "",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "outputs": 2,
+        "halt_if": "unknown",
+        "halt_if_type": "str",
+        "halt_if_compare": "is_not",
+        "override_topic": false,
+        "entity_id": "sensor.nordpool_today_hr_14_15",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 1880,
+        "y": 1560,
+        "wires": [
+            [
+                "9080ac9e.e4b8a"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "d71a0d69.81ff8",
+        "type": "server-state-changed",
+        "z": "20223833.ea1348",
+        "name": "Kl 15:30",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.time",
+        "entityidfiltertype": "exact",
+        "outputinitially": false,
+        "state_type": "str",
+        "haltifstate": "15:30",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 2,
+        "output_only_on_state_change": true,
+        "x": 1580,
+        "y": 1620,
+        "wires": [
+            [
+                "167ad30d.de3d1d"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "167ad30d.de3d1d",
+        "type": "api-current-state",
+        "z": "20223833.ea1348",
+        "name": "",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "outputs": 2,
+        "halt_if": "unknown",
+        "halt_if_type": "str",
+        "halt_if_compare": "is_not",
+        "override_topic": false,
+        "entity_id": "sensor.nordpool_today_hr_15_16",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 1880,
+        "y": 1620,
+        "wires": [
+            [
+                "9080ac9e.e4b8a"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "f69479d.0489488",
+        "type": "server-state-changed",
+        "z": "20223833.ea1348",
+        "name": "Kl 16:30",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.time",
+        "entityidfiltertype": "exact",
+        "outputinitially": false,
+        "state_type": "str",
+        "haltifstate": "16:30",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 2,
+        "output_only_on_state_change": true,
+        "x": 1580,
+        "y": 1680,
+        "wires": [
+            [
+                "62e38a8f.ef9324"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "62e38a8f.ef9324",
+        "type": "api-current-state",
+        "z": "20223833.ea1348",
+        "name": "",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "outputs": 2,
+        "halt_if": "unknown",
+        "halt_if_type": "str",
+        "halt_if_compare": "is_not",
+        "override_topic": false,
+        "entity_id": "sensor.nordpool_today_hr_16_17",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 1880,
+        "y": 1680,
+        "wires": [
+            [
+                "9080ac9e.e4b8a"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "cc8cee31.ccdae",
+        "type": "server-state-changed",
+        "z": "20223833.ea1348",
+        "name": "Kl 17:30",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.time",
+        "entityidfiltertype": "exact",
+        "outputinitially": false,
+        "state_type": "str",
+        "haltifstate": "17:30",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 2,
+        "output_only_on_state_change": true,
+        "x": 1580,
+        "y": 1740,
+        "wires": [
+            [
+                "873d8853.1e3a48"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "873d8853.1e3a48",
+        "type": "api-current-state",
+        "z": "20223833.ea1348",
+        "name": "",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "outputs": 2,
+        "halt_if": "unknown",
+        "halt_if_type": "str",
+        "halt_if_compare": "is_not",
+        "override_topic": false,
+        "entity_id": "sensor.nordpool_today_hr_17_18",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 1880,
+        "y": 1740,
+        "wires": [
+            [
+                "9080ac9e.e4b8a"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "4b915c00.f4add4",
+        "type": "server-state-changed",
+        "z": "20223833.ea1348",
+        "name": "Kl 18:30",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.time",
+        "entityidfiltertype": "exact",
+        "outputinitially": false,
+        "state_type": "str",
+        "haltifstate": "18:30",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 2,
+        "output_only_on_state_change": true,
+        "x": 1580,
+        "y": 1800,
+        "wires": [
+            [
+                "f5e53872.9d2f88"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "f5e53872.9d2f88",
+        "type": "api-current-state",
+        "z": "20223833.ea1348",
+        "name": "",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "outputs": 2,
+        "halt_if": "unknown",
+        "halt_if_type": "str",
+        "halt_if_compare": "is_not",
+        "override_topic": false,
+        "entity_id": "sensor.nordpool_today_hr_18_19",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 1880,
+        "y": 1800,
+        "wires": [
+            [
+                "9080ac9e.e4b8a"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "ca11d4e9.01cd58",
+        "type": "server-state-changed",
+        "z": "20223833.ea1348",
+        "name": "Kl 19:30",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.time",
+        "entityidfiltertype": "exact",
+        "outputinitially": false,
+        "state_type": "str",
+        "haltifstate": "19:30",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 2,
+        "output_only_on_state_change": true,
+        "x": 1580,
+        "y": 1860,
+        "wires": [
+            [
+                "7053b89f.de43d8"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "7053b89f.de43d8",
+        "type": "api-current-state",
+        "z": "20223833.ea1348",
+        "name": "",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "outputs": 2,
+        "halt_if": "unknown",
+        "halt_if_type": "str",
+        "halt_if_compare": "is_not",
+        "override_topic": false,
+        "entity_id": "sensor.nordpool_today_hr_19_20",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 1880,
+        "y": 1860,
+        "wires": [
+            [
+                "9080ac9e.e4b8a"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "ef99f0ab.c7e9d",
+        "type": "server-state-changed",
+        "z": "20223833.ea1348",
+        "name": "Kl 20:30",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.time",
+        "entityidfiltertype": "exact",
+        "outputinitially": false,
+        "state_type": "str",
+        "haltifstate": "20:30",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 2,
+        "output_only_on_state_change": true,
+        "x": 1580,
+        "y": 1920,
+        "wires": [
+            [
+                "35860955.629766"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "35860955.629766",
+        "type": "api-current-state",
+        "z": "20223833.ea1348",
+        "name": "",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "outputs": 2,
+        "halt_if": "unknown",
+        "halt_if_type": "str",
+        "halt_if_compare": "is_not",
+        "override_topic": false,
+        "entity_id": "sensor.nordpool_today_hr_20_21",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 1880,
+        "y": 1920,
+        "wires": [
+            [
+                "9080ac9e.e4b8a"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "2ec565ea.871cba",
+        "type": "server-state-changed",
+        "z": "20223833.ea1348",
+        "name": "Kl 21:30",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.time",
+        "entityidfiltertype": "exact",
+        "outputinitially": false,
+        "state_type": "str",
+        "haltifstate": "21:30",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 2,
+        "output_only_on_state_change": true,
+        "x": 1580,
+        "y": 1980,
+        "wires": [
+            [
+                "fe9137cb.a61c78"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "fe9137cb.a61c78",
+        "type": "api-current-state",
+        "z": "20223833.ea1348",
+        "name": "",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "outputs": 2,
+        "halt_if": "unknown",
+        "halt_if_type": "str",
+        "halt_if_compare": "is_not",
+        "override_topic": false,
+        "entity_id": "sensor.nordpool_today_hr_21_22",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 1880,
+        "y": 1980,
+        "wires": [
+            [
+                "9080ac9e.e4b8a"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "a665f6ec.bd33b8",
+        "type": "server-state-changed",
+        "z": "20223833.ea1348",
+        "name": "Kl 22:30",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.time",
+        "entityidfiltertype": "exact",
+        "outputinitially": false,
+        "state_type": "str",
+        "haltifstate": "22:30",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 2,
+        "output_only_on_state_change": true,
+        "x": 1580,
+        "y": 2040,
+        "wires": [
+            [
+                "a9954a5.d0da4b8"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "a9954a5.d0da4b8",
+        "type": "api-current-state",
+        "z": "20223833.ea1348",
+        "name": "",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "outputs": 2,
+        "halt_if": "unknown",
+        "halt_if_type": "str",
+        "halt_if_compare": "is_not",
+        "override_topic": false,
+        "entity_id": "sensor.nordpool_today_hr_22_23",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 1880,
+        "y": 2040,
+        "wires": [
+            [
+                "9080ac9e.e4b8a"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "f58ba6b2.f91958",
+        "type": "server-state-changed",
+        "z": "20223833.ea1348",
+        "name": "Kl 23:30",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.time",
+        "entityidfiltertype": "exact",
+        "outputinitially": false,
+        "state_type": "str",
+        "haltifstate": "23:30",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 2,
+        "output_only_on_state_change": true,
+        "x": 1580,
+        "y": 2100,
+        "wires": [
+            [
+                "ac35baa6.a23848"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "ac35baa6.a23848",
+        "type": "api-current-state",
+        "z": "20223833.ea1348",
+        "name": "",
+        "server": "31cdcbe7.9c8bf4",
+        "version": 1,
+        "outputs": 2,
+        "halt_if": "unknown",
+        "halt_if_type": "str",
+        "halt_if_compare": "is_not",
+        "override_topic": false,
+        "entity_id": "sensor.nordpool_today_hr_23_24",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 1880,
+        "y": 2100,
+        "wires": [
+            [
+                "9080ac9e.e4b8a"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "31cdcbe7.9c8bf4",
+        "type": "server",
+        "z": "",
+        "name": "Home Assistant",
+        "legacy": false,
+        "rejectUnauthorizedCerts": false,
+        "ha_boolean": "y|yes|true|on|home|open",
+        "connectionDelay": true,
+        "cacheJson": true
+    }
+]
